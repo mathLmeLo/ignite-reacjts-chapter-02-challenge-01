@@ -33,18 +33,18 @@ const Cart = (): JSX.Element => {
 
   const total = formatPrice(cartFormatted.reduce((sumTotal, product) => sumTotal + (product.price*product.amount), 0))
 
-  async function handleProductIncrement(product: Product) {
-    await updateProductAmount({ productId: product.id, amount: product.amount + 1})
+  function handleProductIncrement(product: Product) {
+    updateProductAmount({ productId: product.id, amount: product.amount + 1})
   }
 
-  async function handleProductDecrement(product: Product) {
+  function handleProductDecrement(product: Product) {
     if (product.amount > 1) {
-      await updateProductAmount({ productId: product.id, amount: product.amount - 1})
+      updateProductAmount({ productId: product.id, amount: product.amount - 1})
     }
   }
 
-  async function handleRemoveProduct(productId: number) {
-    await removeProduct(productId);
+  function handleRemoveProduct(productId: number) {
+    removeProduct(productId);
   }
 
   return (
@@ -64,7 +64,7 @@ const Cart = (): JSX.Element => {
           cartFormatted.map(product => {
             // console.log(product)
             return (
-              <tr data-testid="product">
+              <tr key={product.id} data-testid="product">
               <td>
                 <img src={product.image} alt={product.title} />
               </td>
